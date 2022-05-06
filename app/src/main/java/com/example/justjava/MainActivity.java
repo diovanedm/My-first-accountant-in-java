@@ -7,6 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.text.NumberFormat;
+
 public class MainActivity extends AppCompatActivity {
     int quantity = 0;
 
@@ -15,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Button buttonSomar =  findViewById(R.id.somar_text_view);
+        final FloatingActionButton buttonSomar =  findViewById(R.id.somar_text_view);
         buttonSomar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -23,11 +27,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button buttonSubrair = findViewById(R.id.subrair_text_view);
+        final FloatingActionButton buttonSubrair = findViewById(R.id.subrair_text_view);
         buttonSubrair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 decrement();
+            }
+        });
+
+        final Button buttonOrder = findViewById(R.id.order);
+        buttonOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayPrice(quantity * 5);
             }
         });
     }
@@ -36,14 +48,12 @@ public class MainActivity extends AppCompatActivity {
     public void increment() {
         quantity++;
         displayQuantity(quantity);
-        displayPrice(quantity * 5);
     }
 
     public void decrement(){
         if(quantity > 0) {
             quantity--;
             displayQuantity(quantity);
-            displayPrice(quantity * 5);
         }
     }
 
@@ -54,6 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void displayPrice(int value) {
         TextView priceCoffee = findViewById(R.id.price_text_view);
-        priceCoffee.setText("" + value);
+        priceCoffee.setText(NumberFormat.getCurrencyInstance().format(value));
     }
 }
