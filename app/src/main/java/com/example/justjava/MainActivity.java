@@ -5,10 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+    int quantity = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,14 +19,7 @@ public class MainActivity extends AppCompatActivity {
         buttonSomar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView textView = findViewById(R.id.quantity_text_view);
-                int soma = Integer.parseInt((String) textView.getText()) + 1;
-                textView.setText("" +  String.valueOf(soma));
-
-                TextView priceCoffee = findViewById(R.id.price_text_view);
-                int price = Integer.parseInt((String) priceCoffee.getText());
-                int totalPrice = soma * 5;
-                priceCoffee.setText("" + totalPrice);
+                increment();
             }
         });
 
@@ -34,17 +27,33 @@ public class MainActivity extends AppCompatActivity {
         buttonSubrair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView textView = findViewById(R.id.quantity_text_view);
-                if(Integer.parseInt((String) textView.getText()) > 0) {
-                    int subtrair = Integer.parseInt((String) textView.getText()) - 1;
-                    textView.setText("" + subtrair);
-
-                    TextView priceCoffee = findViewById(R.id.price_text_view);
-                    int price = Integer.parseInt((String) priceCoffee.getText());
-                    int totalPrice = subtrair * 5;
-                    priceCoffee.setText("" + totalPrice);
-                }
+                decrement();
             }
         });
+    }
+
+
+    public void increment() {
+        quantity++;
+        displayQuantity(quantity);
+        displayPrice(quantity * 5);
+    }
+
+    public void decrement(){
+        if(quantity > 0) {
+            quantity--;
+            displayQuantity(quantity);
+            displayPrice(quantity * 5);
+        }
+    }
+
+    public void displayQuantity(int value) {
+        TextView textView = findViewById(R.id.quantity_text_view);
+        textView.setText("" + value);
+    }
+
+    public void displayPrice(int value) {
+        TextView priceCoffee = findViewById(R.id.price_text_view);
+        priceCoffee.setText("" + value);
     }
 }
